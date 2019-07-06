@@ -1,37 +1,31 @@
 header {
-  background: #444;
+  background: rgb(31, 30, 30);
   color: ivory;
   line-height: 2em;
   font-size: 1.5em;
   text-align: center;
-
 }
 
-main {
-  margin: 1.5em 1em;
-  ul {
-    list-style-type: none;
+li {
+    background: #eee;
+    line-height: 1.6em;
+    margin: .5em;
+    padding: .5em;
+}
 
-    li {
-        background: #eee;
-        line-height: 1.6em;
-        margin: .5em;
-        padding: .5em;
-
-        details{
-          
-          div{
-            display:flex;
-            flex-direction:row;
-            justify-content: space-between;
-            padding-top: .25em;
-          }
-        }
-    }
+details{
+ div{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    padding-top: .25em;
+    padding-right: 3em;
   }
 }
 
-
+#Available {
+  background-color: pink;
+}
 
 footer {
   bottom: 0;
