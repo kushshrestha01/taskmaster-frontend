@@ -1,64 +1,66 @@
-import React, {Component, Fragment} from 'react';
-import {useState, useEffect} from 'react';
-import { Switch, Route } from 'react-router-dom';
-import mockData from './mock.json';
+import React from 'react';
+import Description from './description.js';
+import Assignee from './assignee.js';
 
-const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task'
+// https://reactjs.org/docs/faq-ajax.html
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: []
+    };
+  }
 
-function Main(){
-  
-  const [people, setPeople] = useState([]);
+  componentDidMount() {
+    console.log('componentDidMount');
+    fetch('http://taskmaster.us-east-2.elasticbeanstalk.com/task')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
 
-  const _getPeople = () =>{
-    // setPeople(mockData)
-    //fetch from backend
-    console.log(API);
-    fetch ( API, {
-      mode:'cors',
-    })
-  };
-
-  useEffect(_getPeople,[]);
-  return(
-    <ul>
-      {people.map( (person) => 
-        <li id={person.status} key={person.id}>
+  render() {
+    const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <ul>
+      {items.map( (item) => 
+        <li id={item.status} key={item.id}>
           <details>
             <summary>
-              <span>Task Title: {person.title}</span>
+              <span>Task Title: {item.title}</span>
             </summary>
             <div>
-              <span>Task Status: {person.status}</span>
-              <Description description={person.description}/>
-              <Assignee assignee={person.assignee}/>
+              <span>Task Status: {item.status}</span>
+              <Description description={item.description}/>
+              <Assignee assignee={item.assignee}/>
             </div>
           </details>
         </li>
         )}
     </ul>
-  )
+      );
+    }
+  }
 }
-
-function Description(props){
-  let description = props.description || [];
-  return(
-    <section>
-      <div>
-        <span>Description: {description}</span>
-      </div>
-    </section> 
-  )
-};
-
-function Assignee(props){
-  let assignee = props.assignee || [];
-  return(
-    <section>
-      <div>
-        <span>Assigned to: {assignee}</span>
-      </div>
-    </section> 
-  )
-};
-
-export default Main;
