@@ -2,6 +2,7 @@ import React from 'react';
 import Description from './description.js';
 import Assignee from './assignee.js';
 
+
 // https://reactjs.org/docs/faq-ajax.html
 export default class Main extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ export default class Main extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    fetch('http://taskmaster.us-east-2.elasticbeanstalk.com/task')
+    fetch( 'http://taskmaster.us-east-2.elasticbeanstalk.com/task', {
+      mode:'cors',
+    })
       .then(res => res.json())
       .then(
         (result) => {
