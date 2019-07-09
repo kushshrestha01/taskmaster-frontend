@@ -7,14 +7,14 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1"    
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && aws s3 sync ./build s3://taskmaster-frontend-react-app --acl public-read"
+    "deploy": "npm run build && aws s3 sync ./build s3://taskmaster-react-frontend --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"

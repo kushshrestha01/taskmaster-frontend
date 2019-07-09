@@ -4,6 +4,11 @@ import Assignee from './assignee.js';
 
 
 // https://reactjs.org/docs/faq-ajax.html
+// https://www.fullstackreact.com/articles/deploying-a-react-app-to-s3/
+
+// const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task';
+const API = 'http://localhost:5000/task'
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +21,7 @@ export default class Main extends React.Component {
 
   componentDidMount() {
     console.log('componentDidMount');
-    fetch( 'http://taskmaster.us-east-2.elasticbeanstalk.com/task', {
+    fetch( API, {
       mode:'cors',
     })
       .then(res => res.json())
@@ -47,6 +52,7 @@ export default class Main extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
+        <div>
         <ul>
       {items.map( (item) => 
         <li id={item.status} key={item.id}>
@@ -58,11 +64,23 @@ export default class Main extends React.Component {
               <span>Task Status: {item.status}</span>
               <Description description={item.description}/>
               <Assignee assignee={item.assignee}/>
+              <img alt="" src={`${item.pic}`}></img>
             </div>
+            <div className="App" id={item.pic}>
+              <form action={`${API}/${item.id}/images`} method="post" encType="multipart/form-data">
+                <label>
+                  <span>Upload Image</span>
+                  <input name="file" type="file" />
+                </label>
+                <button>Save</button>
+              </form>
+            </div>
+
           </details>
         </li>
         )}
     </ul>
+    </div>
       );
     }
   }
