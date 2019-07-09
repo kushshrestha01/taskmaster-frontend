@@ -32,9 +32,7 @@ export default class Main extends React.Component {
             items: result
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
+        
         (error) => {
           this.setState({
             isLoaded: true,
@@ -64,7 +62,7 @@ export default class Main extends React.Component {
               <span>Task Status: {item.status}</span>
               <Description description={item.description}/>
               <Assignee assignee={item.assignee}/>
-              <img alt="" src={`${item.pic}`}></img>
+              <img alt="" width="150" src={`${item.pic}` }></img>
             </div>
             <div className="App" id={item.pic}>
               <form action={`${API}/${item.id}/images`} method="post" encType="multipart/form-data">
