@@ -6,8 +6,8 @@ import Assignee from './assignee.js';
 // https://reactjs.org/docs/faq-ajax.html
 // https://www.fullstackreact.com/articles/deploying-a-react-app-to-s3/
 
-const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task';
-// const API = 'http://localhost:5000/task'
+// const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task';
+const API = 'http://localhost:5000/task'
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -51,33 +51,36 @@ export default class Main extends React.Component {
     } else {
       return (
         <div>
-        <ul>
-      {items.map( (item) => 
-        <li id={item.status} key={item.id}>
-          <details>
-            <summary>
-              <span>Task Title: {item.title}</span>
-            </summary>
-            <div>
-              <span>Task Status: {item.status}</span>
-              <Description description={item.description}/>
-              <Assignee assignee={item.assignee}/>
-              <img alt="" width="150" src={`${item.pic}` }></img>
-            </div>
-            <div className="App" id={item.pic}>
-              <form action={`${API}/${item.id}/images`} method="post" encType="multipart/form-data">
-                <label>
-                  <span>Upload Image</span>
-                  <input name="file" type="file" />
-                </label>
-                <button>Save</button>
-              </form>
-            </div>
+          <ul>
+            {items.map( (item) => 
+            <li id={item.status} key={item.id}>
+              <details>
+                <summary>
+                  <span>Task Title: {item.title}</span>
+                </summary>
+                <div>
+                  <span>Task Status: {item.status}</span>
+                  <Description description={item.description}/>
+                  <Assignee assignee={item.assignee}/>
+                  <img alt="" width="150" src={`${item.pic}` }></img>
+                  <img alt="" src={`${item.resized}` }></img>
+                  {console.log("pic" + item.pic)}
+                  {console.log("resized" + item.resized)}
+                </div>
+                <div className="App" id={item.pic}>
+                  <form action={`${API}/${item.id}/images`} method="post" encType="multipart/form-data">
+                    <label>
+                      <span>Upload Image</span>
+                      <input name="file" type="file" />
+                    </label>
+                    <button>Save</button>
+                  </form>
+                </div>
 
-          </details>
-        </li>
-        )}
-    </ul>
+              </details>
+            </li>
+          )}
+      </ul>
     </div>
       );
     }
