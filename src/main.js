@@ -6,8 +6,8 @@ import Assignee from './assignee.js';
 // https://reactjs.org/docs/faq-ajax.html
 // https://www.fullstackreact.com/articles/deploying-a-react-app-to-s3/
 
-// const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task';
-const API = 'http://localhost:5000/task'
+const API = 'http://taskmaster.us-east-2.elasticbeanstalk.com/task';
+// const API = 'http://localhost:5000/task'
 
 export default class Main extends React.Component {
   constructor(props) {
